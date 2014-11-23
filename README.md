@@ -20,6 +20,6 @@ class MyInvocationHandler implements \Reflection\InvocationHandler\InvocationHan
     }
 }
 
-$proxyClass = \Reflection\Proxy::newInstance(\stdClass::class, new MyInvocationHandler());
-echo $proxyClass->CustomMethod();
+$proxy = \Reflection\Proxy::newInstance(\stdClass::class, new MyInvocationHandler());
+echo $proxy->CustomMethod();
 ```
