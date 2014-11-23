@@ -1,0 +1,34 @@
+{
+  "name": "crashuxx/phproxy",
+  "description": "Class proxy",
+  "keywords": [
+    "class",
+    "proxy"
+  ],
+  "license": [
+    "BSD-3-Clause",
+    "Apache-2.0",
+    ""
+  ],
+  "authors": [
+    {
+      "name": "Lukas Pająk",
+      "email": "lupajak@gmail.com"
+    }
+  ],
+  "autoload": {
+    "psr-0": {
+      "": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-0": {
+      "": "tests"
+    }
+  },
+  "require": {
+  },
+  "require-dev": {
+    "phpunit/phpunit": "~4.3"
+  }
+}

@@ -1,0 +1,11 @@
+{
+    "methodCalls": [
+        {
+            "class": "\\Reflection\\Proxy",
+            "method": "newInstance",
+            "position": 0
+        }
+    ],
+    "functionCalls": [
+    ]
+}
