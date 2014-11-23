@@ -9,7 +9,7 @@ before_script:
 
 php:
   - 5.5
-  - hhvm
+#  - hhvm
 
 script:
   - phpunit --configuration phpunit.xml
