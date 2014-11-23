@@ -10,7 +10,7 @@ class DefaultBuilder implements Builder
 
     public function __construct()
     {
-        $this->propertyName = uniqid('__invocationHandler');
+        $this->propertyName = '__invocationHandler';
     }
 
     public function writeNamespace($namespace)

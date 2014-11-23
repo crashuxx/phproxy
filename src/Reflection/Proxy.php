@@ -53,6 +53,20 @@ class Proxy
     }
 
     /**
+     * @param object $object
+     * @return InvocationHandler
+     */
+    public static function getInvocationHandler($object)
+    {
+        $reflectionClass = new \ReflectionClass($object);
+
+        $reflectionProperty = $reflectionClass->getProperty('__invocationHandler');
+        $reflectionProperty->setAccessible(true);
+
+        return $reflectionProperty->getValue($object);
+    }
+
+    /**
      * @return Proxy
      */
     private static function instance()

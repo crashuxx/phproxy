@@ -144,4 +144,31 @@ class ProxyTest extends \PHPUnit_Framework_TestCase
 
         $this->assertTrue(Proxy::isProxyClass(Proxy::newInstance(\stdClass::class, new DummyInvocationHandler())));
     }
+
+    public function testGetInvocationHandler()
+    {
+        $handler = new DummyInvocationHandler();
+        $proxyClass = Proxy::newInstance(\stdClass::class, $handler);
+
+        $invocationHandler = Proxy::getInvocationHandler($proxyClass);
+
+        $this->assertEquals($handler, $invocationHandler);
+    }
+
+    /**
+     * @expectedException \ReflectionException
+     */
+    public function testGetInvocationHandlerFromNotProxyObject()
+    {
+        $object = \stdClass::class;
+        Proxy::getInvocationHandler($object);
+    }
+
+    /**
+     * @expectedException \ReflectionException
+     */
+    public function testGetInvocationHandlerFromString()
+    {
+        Proxy::getInvocationHandler('string');
+    }
 }
