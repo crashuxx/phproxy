@@ -1,7 +1,9 @@
 phproxy
 =======
 
-Class proxy for php [![Build Status](https://travis-ci.org/crashuxx/phproxy.svg?branch=master)](https://travis-ci.org/crashuxx/phproxy)
+Class proxy for php based on [java.lang.reflect.Proxy](https://docs.oracle.com/javase/7/docs/api/java/lang/reflect/Proxy.html)
+
+[![Build Status](https://travis-ci.org/crashuxx/phproxy.svg?branch=master)](https://travis-ci.org/crashuxx/phproxy)
 
 PHP >= 5.5
 HHVM >= 3.4.0
