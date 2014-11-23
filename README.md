@@ -5,7 +5,7 @@ Class proxy for php
 
 Usage:
 ```php
-class MyInvocationHandler implements \Reflection\InvocationHandler\InvocationHandler
+class MyInvocationHandler implements \Reflection\InvocationHandler
 {
     /**
      * @param object $proxy
