@@ -14,8 +14,8 @@ class DummyProxyClass implements ProxyClass
         throw new RuntimeException("Call on dummy class is forbidden!");
     }
 
-    public function getBaseClassReflection()
+    public function getParentClass()
     {
-        // TODO: Implement getBaseClassReflection() method.
+        return null;
     }
 }

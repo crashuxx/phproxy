@@ -12,5 +12,5 @@ interface ProxyClass
     /**
      * @return \ReflectionClass
      */
-    public function getBaseClassReflection();
+    public function getParentClass();
 }

@@ -102,7 +102,7 @@ class ProxyTest extends \PHPUnit_Framework_TestCase
         $proxyClass = Proxy::getProxyClass(HasConstructor::class);
         $newInstance = $proxyClass->newInstance(new DummyInvocationHandler());
 
-        $proxyClass->getBaseClassReflection()->getConstructor()->invoke($newInstance, 'test value');
+        $proxyClass->getParentClass()->getConstructor()->invoke($newInstance, 'test value');
     }
 
     public function testCallParentMethod_On_HasConstructorClass()
@@ -110,9 +110,9 @@ class ProxyTest extends \PHPUnit_Framework_TestCase
         $proxyClass = Proxy::getProxyClass(HasConstructor::class);
         $newInstance = $proxyClass->newInstance(new DummyInvocationHandler());
 
-        $proxyClass->getBaseClassReflection()->getConstructor()->invoke($newInstance, 'test value');
+        $proxyClass->getParentClass()->getConstructor()->invoke($newInstance, 'test value');
 
-        $this->assertEquals('test value', $proxyClass->getBaseClassReflection()->getMethod('getValue')->invoke($newInstance));
+        $this->assertEquals('test value', $proxyClass->getParentClass()->getMethod('getValue')->invoke($newInstance));
     }
 
     /**
