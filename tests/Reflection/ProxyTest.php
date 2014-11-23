@@ -130,9 +130,9 @@ class ProxyTest extends \PHPUnit_Framework_TestCase
 
     public function testCallToString_On_StdClass()
     {
-        $proxyClass = Proxy::newInstance(\stdClass::class, new BlankInvocationHandler());
+        $newInstance = Proxy::newInstance(\stdClass::class, new BlankInvocationHandler());
 
-        $this->assertEquals('', (string)$proxyClass);
+        $this->assertEquals('', (string)$newInstance);
     }
 
     public function testisProxyClass()
