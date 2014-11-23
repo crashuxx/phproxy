@@ -23,6 +23,8 @@ class Proxy
     }
 
     /**
+     * Return ProxyClass for given class
+     *
      * @param string|string[] $classOrInterfaces
      * @return ProxyClass
      */
@@ -32,6 +34,8 @@ class Proxy
     }
 
     /**
+     * Return true if the given object is a proxy
+     *
      * @param object $object
      * @return bool
      */
@@ -41,6 +45,9 @@ class Proxy
     }
 
     /**
+     * Create new proxy object for given class/interface
+     * All method calls will be passed to the InvocationHandler
+     *
      * @param string|string[] $classOrInterfaces
      * @param InvocationHandler $handler
      * @return object
@@ -53,6 +60,8 @@ class Proxy
     }
 
     /**
+     * Return InvocationHandler that is associated to input object
+     *
      * @param object $object
      * @return InvocationHandler
      */
