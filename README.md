@@ -1,7 +1,7 @@
 phproxy
 =======
 
-Class proxy for php
+Class proxy for php [![Build Status](https://travis-ci.org/crashuxx/phproxy.svg?branch=master)](https://travis-ci.org/crashuxx/phproxy)
 
 Usage:
 ```php
