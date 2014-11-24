@@ -7,6 +7,7 @@ use Reflection\fixture\ClassWithMethodParameterDefaultConst;
 use Reflection\fixture\ClassWithMethodParameterObjectTyped;
 use Reflection\fixture\DummyInterface;
 use Reflection\fixture\FinalClass;
+use Reflection\fixture\FooMethodInterface;
 use Reflection\fixture\HasConstructor;
 use Reflection\internal\ProxyMark;
 use Reflection\InvocationHandler\BlankInvocationHandler;
@@ -192,5 +193,15 @@ class ProxyTest extends \PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf(ProxyMark::class, $instance);
         $this->assertInstanceOf(DummyInterface::class, $instance);
+    }
+
+    /**
+     * @test
+     */
+    public function should_implements_interface_with_method()
+    {
+        $instance = Proxy::newInstance(FooMethodInterface::class, new DummyInvocationHandler());
+
+        $this->assertInstanceOf(FooMethodInterface::class, $instance);
     }
 }
