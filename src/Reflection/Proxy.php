@@ -150,7 +150,7 @@ class Proxy
 
         foreach ($classOrInterfaces as $name) {
             if (interface_exists($name)) {
-                $classes[] = new \ReflectionClass($name);
+                $interfaces[] = new \ReflectionClass($name);
             }
         }
 

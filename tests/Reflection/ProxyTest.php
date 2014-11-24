@@ -5,6 +5,7 @@ namespace Reflection;
 
 use Reflection\fixture\ClassWithMethodParameterDefaultConst;
 use Reflection\fixture\ClassWithMethodParameterObjectTyped;
+use Reflection\fixture\DummyInterface;
 use Reflection\fixture\FinalClass;
 use Reflection\fixture\HasConstructor;
 use Reflection\internal\ProxyMark;
@@ -180,5 +181,16 @@ class ProxyTest extends \PHPUnit_Framework_TestCase
     public function final_class_should_fail()
     {
         Proxy::getProxyClass(FinalClass::class);
+    }
+
+    /**
+     * @test
+     */
+    public function should_implements_interfaces()
+    {
+        $instance = Proxy::newInstance(DummyInterface::class, new DummyInvocationHandler());
+
+        $this->assertInstanceOf(ProxyMark::class, $instance);
+        $this->assertInstanceOf(DummyInterface::class, $instance);
     }
 }

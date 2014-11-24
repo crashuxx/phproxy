@@ -30,8 +30,10 @@ class ProxyClassFactoryImpl implements ProxyClassFactory
         $baseClassName = $reflectionClass->getName();
         $enhancedClassName = $reflectionClass->getShortName() . uniqid('Enhanced');
 
+        $implementNames = array_unique(array_merge([ProxyMark::class], $this->extractInterfaceNames($interfaces)));
+
         $builder->writeNamespace('Reflection\enhanced');
-        $builder->writeClass($enhancedClassName, $baseClassName, [ProxyMark::class]);
+        $builder->writeClass($enhancedClassName, $baseClassName, $implementNames);
         $builder->writeConstructor();
 
         $reflectionMethods = $this->extractMethods([$reflectionClass] + $interfaces);
@@ -49,6 +51,21 @@ class ProxyClassFactoryImpl implements ProxyClassFactory
         eval($generatedCode);
 
         return new ProxyClassImpl('\\Reflection\\enhanced\\' . $enhancedClassName, $reflectionClass, $interfaces);
+    }
+
+    /**
+     * @param \ReflectionClass[] $interfaces
+     * @return string[]
+     */
+    private function extractInterfaceNames($interfaces = [])
+    {
+        $names = [];
+
+        foreach ($interfaces as $interface) {
+            $names[] = $interface->getName();
+        }
+
+        return array_unique($names);;
     }
 
     /**

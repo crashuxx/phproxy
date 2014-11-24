@@ -17,5 +17,4 @@ class DummyInvocationHandler implements InvocationHandler
     {
         throw new \RuntimeException('Cannot call method on dummy invocation handler!');
     }
-
 }

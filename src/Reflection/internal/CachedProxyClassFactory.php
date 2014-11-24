@@ -29,7 +29,7 @@ class CachedProxyClassFactory implements ProxyClassFactory
      */
     public function get(\ReflectionClass $reflectionClass, $interfaces = [])
     {
-        $key = $this->makeKey([$reflectionClass] + $interfaces);
+        $key = $this->makeKey(array_merge([$reflectionClass], $interfaces));
 
         if (!isset($this->classMap[$key])) {
             $this->classMap[$key] = $this->enhancedClassFactory->get($reflectionClass, $interfaces);
