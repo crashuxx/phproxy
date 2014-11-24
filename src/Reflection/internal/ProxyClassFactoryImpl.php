@@ -36,7 +36,7 @@ class ProxyClassFactoryImpl implements ProxyClassFactory
         $builder->writeClass($enhancedClassName, $baseClassName, $implementNames);
         $builder->writeConstructor();
 
-        $reflectionMethods = $this->extractMethods(array_merge($reflectionClass, $interfaces));
+        $reflectionMethods = $this->extractMethods(array_merge([$reflectionClass], $interfaces));
 
         foreach ($reflectionMethods as $reflectionMethod) {
             $builder->writeMethod($reflectionMethod);
