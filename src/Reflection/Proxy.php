@@ -101,8 +101,12 @@ class Proxy
         $class = $this->extractReflectionClass($classOrInterfaces);
         $interfaces = $this->extractReflectionInterfaces($classOrInterfaces);
 
+        if ($class->isFinal()) {
+            throw new ProxyException("Cannot proxy class that is final! ". $class->getName());
+        }
+
         if (count($interfaces) + 1 < count($classOrInterfaces)) {
-            throw new \ReflectionException('Something went wrong :)');
+            throw new ProxyException('Something went wrong :)');
         }
 
         $proxyClass = $this->proxyClassFactory->get($class, $interfaces);
@@ -126,7 +130,7 @@ class Proxy
         }
 
         if (count($classes) > 1) {
-            throw new \ReflectionException('Cannot proxy class with more then 1 base class!');
+            throw new ProxyException('Cannot proxy class with more then 1 base class!');
         }
 
         if (count($classes) == 1) {

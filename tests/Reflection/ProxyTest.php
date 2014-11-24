@@ -5,6 +5,7 @@ namespace Reflection;
 
 use Reflection\fixture\ClassWithMethodParameterDefaultConst;
 use Reflection\fixture\ClassWithMethodParameterObjectTyped;
+use Reflection\fixture\FinalClass;
 use Reflection\fixture\HasConstructor;
 use Reflection\internal\ProxyMark;
 use Reflection\InvocationHandler\BlankInvocationHandler;
@@ -170,5 +171,14 @@ class ProxyTest extends \PHPUnit_Framework_TestCase
     public function testGetInvocationHandlerFromString()
     {
         Proxy::getInvocationHandler('string');
+    }
+
+    /**
+     * @test
+     * @expectedException \Reflection\ProxyException
+     */
+    public function final_class_should_fail()
+    {
+        Proxy::getProxyClass(FinalClass::class);
     }
 }
