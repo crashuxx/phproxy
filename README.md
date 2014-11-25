@@ -1,7 +1,8 @@
 phproxy
 =======
 
-Class proxy for php based on [java.lang.reflect.Proxy](https://docs.oracle.com/javase/7/docs/api/java/lang/reflect/Proxy.html)
+Class proxy for php based on [java.lang.reflect.Proxy](https://docs.oracle.com/javase/7/docs/api/java/lang/reflect/Proxy.html).
+This library is under [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0.html).
 
 [![Build Status](https://travis-ci.org/crashuxx/phproxy.svg?branch=master)](https://travis-ci.org/crashuxx/phproxy)
 
