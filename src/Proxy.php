@@ -5,6 +5,7 @@ namespace Reflection;
 
 use Reflection\internal\Builder\BuilderFactory;
 use Reflection\internal\CachedProxyClassFactory;
+use Reflection\internal\Evaluator\EvalEvaluator;
 use Reflection\internal\ProxyClassFactory;
 use Reflection\internal\ProxyClassFactoryImpl;
 use Reflection\internal\ProxyMark;
@@ -19,7 +20,15 @@ class Proxy
 
     private function __construct()
     {
-        $this->proxyClassFactory = new CachedProxyClassFactory(new ProxyClassFactoryImpl(new BuilderFactory()));
+        $this->proxyClassFactory = $this->createProxyClassFactory();
+    }
+
+    /**
+     * @return ProxyClassFactory
+     */
+    private function createProxyClassFactory()
+    {
+        return new CachedProxyClassFactory(new ProxyClassFactoryImpl(new BuilderFactory(), new EvalEvaluator()));
     }
 
     /**

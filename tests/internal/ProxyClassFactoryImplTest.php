@@ -4,6 +4,7 @@ namespace Reflection\internal;
 
 
 use Reflection\internal\Builder\BuilderFactoryStub;
+use Reflection\internal\Evaluator\EvalEvaluator;
 use Reflection\ProxyClass;
 
 class ProxyClassFactoryImplTest extends \PHPUnit_Framework_TestCase
@@ -56,7 +57,7 @@ class ProxyClassFactoryImplTest extends \PHPUnit_Framework_TestCase
      */
     private function createEnhancedClassFactory()
     {
-        $enhancedClassFactory = new ProxyClassFactoryImpl(new BuilderFactoryStub());
+        $enhancedClassFactory = new ProxyClassFactoryImpl(new BuilderFactoryStub(), new EvalEvaluator());
 
         return $enhancedClassFactory;
     }
