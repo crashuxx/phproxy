@@ -3,6 +3,8 @@
 namespace Reflection\internal\Builder;
 
 
+use ReflectionException;
+
 class DefaultBuilder implements Builder
 {
     private $propertyName;
@@ -63,11 +65,12 @@ class DefaultBuilder implements Builder
 
             $arg .= '$' . $parameter->getName();
 
-            if ($parameter->isDefaultValueAvailable()) {
-                if (!$parameter->getDefaultValueConstantName()) {
-                    $arg .= ' = ' . var_export($parameter->getDefaultValueConstantName(), true);
-                } else {
-                    $arg .= ' = ' . var_export($parameter->getDefaultValue(), true);
+            try {
+                $defaultValue = $parameter->getDefaultValue();
+                $arg .= ' = ' . var_export($defaultValue, true);
+            } catch(ReflectionException $e) {
+                if($parameter->isOptional()) {
+                    $arg .= ' = null';
                 }
             }
 

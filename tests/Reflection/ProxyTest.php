@@ -204,4 +204,14 @@ class ProxyTest extends \PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf(FooMethodInterface::class, $instance);
     }
+
+    /**
+     * @test
+     */
+    public function proxy_built_for_SoapClient()
+    {
+        $instance = Proxy::newInstance(\SoapClient::class, new DummyInvocationHandler());
+
+        $this->assertInstanceOf(\SoapClient::class, $instance);
+    }
 }
