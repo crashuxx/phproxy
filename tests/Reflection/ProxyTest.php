@@ -24,7 +24,7 @@ class ProxyTest extends \PHPUnit_Framework_TestCase
 
     public function testNewInstanceOf_StdClass()
     {
-        $proxyClass = Proxy::newInstance(\stdClass::class, new DummyInvocationHandler());
+        $proxyClass = Proxy::newProxyInstance(\stdClass::class, new DummyInvocationHandler());
 
         $this->assertInstanceOf(ProxyMark::class, $proxyClass);
     }
@@ -35,14 +35,14 @@ class ProxyTest extends \PHPUnit_Framework_TestCase
      */
     public function testCallMethodOnInstanceOf_StdClass_With_DummyInvocationHandler()
     {
-        $proxyClass = Proxy::newInstance(\stdClass::class, new DummyInvocationHandler());
+        $proxyClass = Proxy::newProxyInstance(\stdClass::class, new DummyInvocationHandler());
         /** @noinspection PhpUndefinedMethodInspection */
         $proxyClass->NotExistingMethod();
     }
 
     public function testCallMethodOnInstanceOf_StdClass_With_BlankInvocationHandler()
     {
-        $proxyClass = Proxy::newInstance(\stdClass::class, new BlankInvocationHandler());
+        $proxyClass = Proxy::newProxyInstance(\stdClass::class, new BlankInvocationHandler());
         /** @noinspection PhpUndefinedMethodInspection */
         $result = $proxyClass->NotExistingMethod();
 
@@ -73,7 +73,7 @@ class ProxyTest extends \PHPUnit_Framework_TestCase
      */
     public function testCallMethod_On_ClassWithMethodParameterDefaultConst()
     {
-        $proxedClass = Proxy::newInstance(ClassWithMethodParameterDefaultConst::class, new DummyInvocationHandler());
+        $proxedClass = Proxy::newProxyInstance(ClassWithMethodParameterDefaultConst::class, new DummyInvocationHandler());
 
         $proxedClass->asd(new \ArrayIterator([]));
     }
@@ -84,7 +84,7 @@ class ProxyTest extends \PHPUnit_Framework_TestCase
      */
     public function testCallMethod_On_ClassWithMethodParameterObjectTyped()
     {
-        $proxedClass = Proxy::newInstance(ClassWithMethodParameterObjectTyped::class, new DummyInvocationHandler());
+        $proxedClass = Proxy::newProxyInstance(ClassWithMethodParameterObjectTyped::class, new DummyInvocationHandler());
 
         $proxedClass->asd(new \ArrayIterator([]));
     }
@@ -95,7 +95,7 @@ class ProxyTest extends \PHPUnit_Framework_TestCase
      */
     public function testCallMethod_On_ClassWithMethodParameterObjectTypedOptional()
     {
-        $proxedClass = Proxy::newInstance(ClassWithMethodParameterDefaultConst::class, new DummyInvocationHandler());
+        $proxedClass = Proxy::newProxyInstance(ClassWithMethodParameterDefaultConst::class, new DummyInvocationHandler());
 
         $proxedClass->asd(new \ArrayIterator([]));
     }
@@ -133,7 +133,7 @@ class ProxyTest extends \PHPUnit_Framework_TestCase
 
     public function testCallToString_On_StdClass()
     {
-        $newInstance = Proxy::newInstance(\stdClass::class, new BlankInvocationHandler());
+        $newInstance = Proxy::newProxyInstance(\stdClass::class, new BlankInvocationHandler());
 
         $this->assertEquals('', (string)$newInstance);
     }
@@ -145,13 +145,13 @@ class ProxyTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse(Proxy::isProxyClass('string'));
         $this->assertFalse(Proxy::isProxyClass(new \stdClass));
 
-        $this->assertTrue(Proxy::isProxyClass(Proxy::newInstance(\stdClass::class, new DummyInvocationHandler())));
+        $this->assertTrue(Proxy::isProxyClass(Proxy::newProxyInstance(\stdClass::class, new DummyInvocationHandler())));
     }
 
     public function testGetInvocationHandler()
     {
         $handler = new DummyInvocationHandler();
-        $proxyClass = Proxy::newInstance(\stdClass::class, $handler);
+        $proxyClass = Proxy::newProxyInstance(\stdClass::class, $handler);
 
         $invocationHandler = Proxy::getInvocationHandler($proxyClass);
 
@@ -189,7 +189,7 @@ class ProxyTest extends \PHPUnit_Framework_TestCase
      */
     public function should_implements_interfaces()
     {
-        $instance = Proxy::newInstance(DummyInterface::class, new DummyInvocationHandler());
+        $instance = Proxy::newProxyInstance(DummyInterface::class, new DummyInvocationHandler());
 
         $this->assertInstanceOf(ProxyMark::class, $instance);
         $this->assertInstanceOf(DummyInterface::class, $instance);
@@ -200,7 +200,7 @@ class ProxyTest extends \PHPUnit_Framework_TestCase
      */
     public function should_implements_interface_with_method()
     {
-        $instance = Proxy::newInstance(FooMethodInterface::class, new DummyInvocationHandler());
+        $instance = Proxy::newProxyInstance(FooMethodInterface::class, new DummyInvocationHandler());
 
         $this->assertInstanceOf(FooMethodInterface::class, $instance);
     }
@@ -210,7 +210,7 @@ class ProxyTest extends \PHPUnit_Framework_TestCase
      */
     public function proxy_built_for_SoapClient()
     {
-        $instance = Proxy::newInstance(\SoapClient::class, new DummyInvocationHandler());
+        $instance = Proxy::newProxyInstance(\SoapClient::class, new DummyInvocationHandler());
 
         $this->assertInstanceOf(\SoapClient::class, $instance);
     }

@@ -52,7 +52,7 @@ class Proxy
      * @param InvocationHandler $handler
      * @return object
      */
-    public static function newInstance($classOrInterfaces, InvocationHandler $handler)
+    public static function newProxyInstance($classOrInterfaces, InvocationHandler $handler)
     {
         $proxyClass = self::getProxyClass($classOrInterfaces);
 
