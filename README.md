@@ -11,6 +11,8 @@ HHVM >= 3.4.0
 
 Usage:
 ```php
+use \Reflection\Proxy;
+
 class MyInvocationHandler implements \Reflection\InvocationHandler
 {
     /**
@@ -26,6 +28,6 @@ class MyInvocationHandler implements \Reflection\InvocationHandler
     }
 }
 
-$proxy = \Reflection\Proxy::newProxyInstance(\stdClass::class, new MyInvocationHandler());
+$proxy = Proxy::newProxyInstance(\stdClass::class, new MyInvocationHandler());
 echo $proxy->CustomMethod();
 ```
