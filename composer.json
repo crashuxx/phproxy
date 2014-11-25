@@ -16,13 +16,13 @@
     }
   ],
   "autoload": {
-    "psr-0": {
-      "": "src"
+    "psr-4": {
+      "Reflection\\": "src"
     }
   },
   "autoload-dev": {
-    "psr-0": {
-      "": "tests"
+    "psr-4": {
+      "Reflection\\": "tests"
     }
   },
   "require": {
