@@ -4,51 +4,61 @@ namespace Reflection\internal;
 
 
 use Reflection\internal\Builder\BuilderFactoryStub;
+use Reflection\internal\Evaluator\EvalEvaluator;
 use Reflection\ProxyClass;
 
 class ProxyClassFactoryImplTest extends \PHPUnit_Framework_TestCase
 {
-    public function testCreateForStdClass()
+    /**
+     * @dataProvider createDataProvider
+     */
+    public function testCreate($className)
     {
-        $enhancedClassFactory = new ProxyClassFactoryImpl(new BuilderFactoryStub());
-        $enhanceClass = new \ReflectionClass(\stdClass::class);
-        $interfaces = [];
+        $enhancedClassFactory = $this->createEnhancedClassFactory();
+        $enhanceClass = new \ReflectionClass($className);
+
+        $enhancedClass = $enhancedClassFactory->get($enhanceClass);
+
+        $this->assertInstanceOf(ProxyClass::class, $enhancedClass);
+    }
+
+    public function createDataProvider()
+    {
+        return [
+            [\stdClass::class],
+            [\SoapClient::class]
+        ];
+    }
+
+    /**
+     * @dataProvider createWithAdditionalInterfaceDataProvider
+     */
+    public function testCreateWithAdditionalInterface($className, $interfaceName)
+    {
+        $enhancedClassFactory = $this->createEnhancedClassFactory();
+        $enhanceClass = new \ReflectionClass($className);
+        $interfaces = [new \ReflectionClass($interfaceName)];
 
         $enhancedClass = $enhancedClassFactory->get($enhanceClass, $interfaces);
 
         $this->assertInstanceOf(ProxyClass::class, $enhancedClass);
     }
 
-    public function testCreateForSoapClient()
+    public function createWithAdditionalInterfaceDataProvider()
     {
-        $enhancedClassFactory = new ProxyClassFactoryImpl(new BuilderFactoryStub());
-        $enhanceClass = new \ReflectionClass(\SoapClient::class);
-        $interfaces = [];
-
-        $enhancedClass = $enhancedClassFactory->get($enhanceClass, $interfaces);
-
-        $this->assertInstanceOf(ProxyClass::class, $enhancedClass);
+        return [
+            [\stdClass::class, \Iterator::class],
+            [\SoapClient::class, \Iterator::class]
+        ];
     }
 
-    public function testCreateForStdClassWithAdditionalInterface()
+    /**
+     * @return ProxyClassFactoryImpl
+     */
+    private function createEnhancedClassFactory()
     {
-        $enhancedClassFactory = new ProxyClassFactoryImpl(new BuilderFactoryStub());
-        $enhanceClass = new \ReflectionClass(\stdClass::class);
-        $interfaces = [new \ReflectionClass(\Iterator::class)];
+        $enhancedClassFactory = new ProxyClassFactoryImpl(new BuilderFactoryStub(), new EvalEvaluator());
 
-        $enhancedClass = $enhancedClassFactory->get($enhanceClass, $interfaces);
-
-        $this->assertInstanceOf(ProxyClass::class, $enhancedClass);
-    }
-
-    public function testCreateForSoapClientWithAdditionalInterface()
-    {
-        $enhancedClassFactory = new ProxyClassFactoryImpl(new BuilderFactoryStub());
-        $enhanceClass = new \ReflectionClass(\stdClass::class);
-        $interfaces = [new \ReflectionClass(\Iterator::class)];
-
-        $enhancedClass = $enhancedClassFactory->get($enhanceClass, $interfaces);
-
-        $this->assertInstanceOf(ProxyClass::class, $enhancedClass);
+        return $enhancedClassFactory;
     }
 }

@@ -13,9 +13,15 @@ class ProxyClassFactoryImpl implements ProxyClassFactory
      */
     private $builderFactory;
 
-    public function __construct(BuilderFactory $builderFactory)
+    /**
+     * @var Evaluator
+     */
+    private $evaluator;
+
+    public function __construct(BuilderFactory $builderFactory, Evaluator $evaluator)
     {
         $this->builderFactory = $builderFactory;
+        $this->evaluator = $evaluator;
     }
 
     /**
@@ -48,7 +54,7 @@ class ProxyClassFactoryImpl implements ProxyClassFactory
         $builder->writeClose();
         $generatedCode = $builder->build();
 
-        eval($generatedCode);
+        $this->evaluator->evaluate($generatedCode);
 
         return new ProxyClassImpl('\\Reflection\\enhanced\\' . $enhancedClassName, $reflectionClass, $interfaces);
     }
