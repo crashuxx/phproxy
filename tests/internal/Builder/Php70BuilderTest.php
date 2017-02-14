@@ -7,6 +7,14 @@ use Reflection\internal\ProxyMark;
 
 class Php70BuilderTest extends \PHPUnit_Framework_TestCase
 {
+    protected function setUp()
+    {
+        parent::setUp();
+        if (PHP_MAJOR_VERSION < 7) {
+            $this->markTestSkipped('requires php 7');
+        }
+    }
+
     public function testStdClassWithoutInterface()
     {
         $builder = new Php70Builder();
