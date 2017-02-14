@@ -91,7 +91,7 @@ class Php70Builder implements Builder
 
         $returnType = $method->getReturnType();
         if ($returnType != null) {
-            $this->code[count($this->code) - 1] .= ': ' . $returnType;
+            $this->code[count($this->code) - 1] .= ': ' . ($returnType->isBuiltin() ? '' : '\\') . $returnType;
         }
 
         $this->code[count($this->code) - 1] .= ' {';

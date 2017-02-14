@@ -101,7 +101,6 @@ class Php70BuilderTest extends \PHPUnit_Framework_TestCase
         $builder->writeMethod($reflectionClass->getMethod('classReturnTypeMethod'));
         $builder->writeClose();
 
-        echo $builder->build();
         eval($builder->build());
 
         $this->assertTrue(class_exists($newName, false));
