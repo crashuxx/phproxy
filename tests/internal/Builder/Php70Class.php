@@ -13,6 +13,11 @@ class Php70Class
         return (object)[];
     }
 
+    public function classReturnTypeMethod(): Php70Class
+    {
+        return null;
+    }
+
     public function typedParameter(string $string, Iterator $iterator)
     {
     }

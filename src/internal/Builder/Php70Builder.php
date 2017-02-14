@@ -58,7 +58,11 @@ class Php70Builder implements Builder
             } else if ($parameter->getClass()) {
                 $arg .= '\\' . $parameter->getClass()->getName() . ' ';
             } else if ($parameter->hasType()) {
-                $arg .= $parameter->getType(). ' ';
+                $type = $parameter->getType();
+                if (!$type->isBuiltin()) {
+                    $arg .= '\\';
+                }
+                $arg .= $type . ' ';
             }
 
             if ($parameter->isPassedByReference()) {
