@@ -74,4 +74,20 @@ class Php70BuilderTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue(class_exists($newName, false));
         $this->assertInstanceOf(Php70Class::class, new $newName());
     }
+
+    public function testImplementPhp7TypedMethodParameter()
+    {
+        $builder = new Php70Builder();
+        $newName = uniqid('Php7Class');
+        $reflectionClass = new \ReflectionClass(Php70Class::class);
+
+        $builder->writeClass($newName, Php70Class::class, []);
+        $builder->writeMethod($reflectionClass->getMethod('typedParameter'));
+        $builder->writeClose();
+
+        eval($builder->build());
+
+        $this->assertTrue(class_exists($newName, false));
+        $this->assertInstanceOf(Php70Class::class, new $newName());
+    }
 }
