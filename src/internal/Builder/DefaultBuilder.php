@@ -4,6 +4,7 @@ namespace Reflection\internal\Builder;
 
 
 use ReflectionException;
+use ReflectionMethod;
 
 class DefaultBuilder implements Builder
 {
@@ -94,9 +95,16 @@ class DefaultBuilder implements Builder
         $this->code[] = '}';
     }
 
-    public function writeCallMethod()
+    public function writeCallMethod(ReflectionMethod $method = null)
     {
-        $this->code[] = '  public function __call($name, $args) {';
+        $parameterType = '';
+
+        if ($method && $method->getNumberOfParameters() == 2) {
+            $parameter = $method->getParameters()[1];
+            $parameterType = $parameter->isArray() ? 'array' : '';
+        }
+
+        $this->code[] = '  public function __call($name, ' . $parameterType . ' $args) {';
         $this->code[] = '    $result = $this->' . $this->propertyName . '->invoke($this, $name, $args);';
         $this->code[] = '    return $result;';
         $this->code[] = '  }';

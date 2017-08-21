@@ -3,6 +3,7 @@
 namespace Reflection;
 
 
+use Reflection\fixture\CallArgsType;
 use Reflection\fixture\ClassWithMethodParameterDefaultConst;
 use Reflection\fixture\ClassWithMethodParameterObjectTyped;
 use Reflection\fixture\DummyInterface;
@@ -213,5 +214,15 @@ class ProxyTest extends \PHPUnit_Framework_TestCase
         $instance = Proxy::newProxyInstance(\SoapClient::class, new DummyInvocationHandler());
 
         $this->assertInstanceOf(\SoapClient::class, $instance);
+    }
+
+    /**
+     * @test
+     */
+    public function should_implements_call_with_typed_argument()
+    {
+        $instance = Proxy::newProxyInstance(CallArgsType::class, new DummyInvocationHandler());
+
+        $this->assertInstanceOf(CallArgsType::class, $instance);
     }
 }

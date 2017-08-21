@@ -3,6 +3,8 @@
 namespace Reflection\internal\Builder;
 
 
+use ReflectionMethod;
+
 interface Builder
 {
     /**
@@ -25,7 +27,7 @@ interface Builder
     /**
      * @return null
      */
-    public function writeCallMethod();
+    public function writeCallMethod(ReflectionMethod $method = null);
 
     /**
      */

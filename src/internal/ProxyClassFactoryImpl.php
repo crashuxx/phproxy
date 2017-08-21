@@ -5,6 +5,7 @@ namespace Reflection\internal;
 
 use Reflection\internal\Builder\BuilderFactory;
 use Reflection\ProxyClass;
+use ReflectionMethod;
 
 class ProxyClassFactoryImpl implements ProxyClassFactory
 {
@@ -43,13 +44,21 @@ class ProxyClassFactoryImpl implements ProxyClassFactory
         $builder->writeConstructor();
 
         $reflectionMethods = $this->extractMethods(array_merge([$reflectionClass], $interfaces));
+        $methods = array_filter($reflectionMethods, function (ReflectionMethod $method) {
+            return !in_array($method->getName(), ['__call', '__toString']);
+        });
 
-        foreach ($reflectionMethods as $reflectionMethod) {
+        foreach ($methods as $reflectionMethod) {
             $builder->writeMethod($reflectionMethod);
         }
 
         $builder->writeToStringMethod();
-        $builder->writeCallMethod();
+
+        $callMethods = array_filter($reflectionMethods, function (ReflectionMethod $method) {
+            return $method->getName() === '__call';
+        });
+        $callMethod = reset($callMethods);
+        $builder->writeCallMethod($callMethod ? $callMethod : null);
 
         $builder->writeClose();
         $generatedCode = $builder->build();
@@ -92,10 +101,6 @@ class ProxyClassFactoryImpl implements ProxyClassFactory
                 }
 
                 if (in_array('final', $modifier) || in_array('static', $modifier)) {
-                    continue;
-                }
-
-                if (in_array($reflectionMethod->getName(), ['__call', '__toString'])) {
                     continue;
                 }
 

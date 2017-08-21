@@ -3,6 +3,8 @@
 namespace Reflection\internal\Builder;
 
 
+use ReflectionMethod;
+
 class StubbedBuilder implements Builder
 {
     /**
@@ -48,7 +50,7 @@ class StubbedBuilder implements Builder
     /**
      * @return null
      */
-    public function writeCallMethod()
+    public function writeCallMethod(ReflectionMethod $method = null)
     {
     }
 
